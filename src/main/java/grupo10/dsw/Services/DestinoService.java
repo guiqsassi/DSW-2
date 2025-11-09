@@ -55,5 +55,13 @@ public class DestinoService {
         }
     }
 
+    public Destino findById(UUID idDestino){
+        Destino destino = repository.get(idDestino);
+        if(destino == null){
+            throw new RuntimeException("Destino não encontrado");
+        }
+        return destino;
+    }
+
 
 }

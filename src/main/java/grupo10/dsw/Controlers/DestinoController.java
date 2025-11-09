@@ -31,6 +31,17 @@ public class DestinoController {
     public ResponseEntity<?> getDestinosByFilter(@RequestParam(required = false) String nome, @RequestParam(required = false) String cidade, @RequestParam(required = false) String estado, @RequestParam(required = false) String pais){
         return new ResponseEntity<>(destinoService.find(nome, cidade, estado, pais), HttpStatus.OK);
     }
+    
+    @GetMapping("/{id}")
+    public ResponseEntity<?> getDestinoById(@PathVariable UUID id){
+        try {
+            Destino destino = destinoService.findById(id);
+            return new ResponseEntity<>(destino, HttpStatus.OK);
+        } catch (RuntimeException e) {
+            return new ResponseEntity<>(e.getMessage(), HttpStatus.NOT_FOUND);
+        }
+    }
+    
     @PostMapping("/{id}")
     public ResponseEntity<?> avaliar(@RequestBody Integer nota, @PathVariable UUID id){
 
